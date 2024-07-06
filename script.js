@@ -24,3 +24,17 @@ function getHumanChoice() {
     let input = prompt("Enter rock, paper, or scissors");
     return input.toLowerCase();
 }
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        console.log("Tie");
+    }
+    else if ((humanChoice == "rock" && computerChoice == "paper") || (humanChoice == "paper" && computerChoice == "scissors") || (humanChoice == "scissors" && computerChoice == "rock")) {
+        console.log(`You Lose! ${computerChoice} beats ${humanChoice}.`);
+        computerScore++;
+    }
+    else {
+        console.log(`You Win! ${humanChoice} beats ${computerChoice}.`);
+        humanScore++;
+    } 
+}
