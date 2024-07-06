@@ -1,8 +1,5 @@
 "use strict";
 
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
     let rand = Math.floor(Math.random() * 3);
     let choice = ""
@@ -25,16 +22,27 @@ function getHumanChoice() {
     return input.toLowerCase();
 }
 
-function playRound(humanChoice, computerChoice) {
-    if (humanChoice === computerChoice) {
-        console.log("Tie");
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        if (humanChoice === computerChoice) {
+            console.log("Tie!");
+        }
+        else if ((humanChoice == "rock" && computerChoice == "paper") || (humanChoice == "paper" && computerChoice == "scissors") || (humanChoice == "scissors" && computerChoice == "rock")) {
+            console.log(`You Lose! ${computerChoice} beats ${humanChoice}.`);
+            computerScore++;
+        }
+        else {
+            console.log(`You Win! ${humanChoice} beats ${computerChoice}.`);
+            humanScore++;
+        } 
     }
-    else if ((humanChoice == "rock" && computerChoice == "paper") || (humanChoice == "paper" && computerChoice == "scissors") || (humanChoice == "scissors" && computerChoice == "rock")) {
-        console.log(`You Lose! ${computerChoice} beats ${humanChoice}.`);
-        computerScore++;
+
+    for (let i = 0; i < 5; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
     }
-    else {
-        console.log(`You Win! ${humanChoice} beats ${computerChoice}.`);
-        humanScore++;
-    } 
 }
+
+playGame();
