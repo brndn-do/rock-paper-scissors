@@ -17,31 +17,48 @@ function getComputerChoice() {
     return choice;
 }
 
-function getHumanChoice() {
-    let input = prompt("Enter rock, paper, or scissors");
-    return input.toLowerCase();
-}
-
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
 
+    const buttons = document.querySelectorAll(".button");
+    buttons.forEach(button => {
+        button.addEventListener("click", event => {
+            playRound(event.target.id, getComputerChoice());
+        });
+    });
+
     function playRound(humanChoice, computerChoice) {
+        let message = document.querySelector("#message");
+        let result = document.createElement("div");
+        let score = document.createElement("div");
+        let winner = document.createElement("div");
+
         if (humanChoice === computerChoice) {
-            console.log("Tie!");
+            result.textContent = "Tie!";
         }
         else if ((humanChoice == "rock" && computerChoice == "paper") || (humanChoice == "paper" && computerChoice == "scissors") || (humanChoice == "scissors" && computerChoice == "rock")) {
-            console.log(`You Lose! ${computerChoice} beats ${humanChoice}.`);
+            result.textContent = `You Lose! ${computerChoice} beats ${humanChoice}.`;
             computerScore++;
         }
         else {
-            console.log(`You Win! ${humanChoice} beats ${computerChoice}.`);
+            result.textContent = `You Win! ${humanChoice} beats ${computerChoice}.`;
             humanScore++;
-        } 
-    }
+        }
 
-    for (let i = 0; i < 5; i++) {
-        playRound(getHumanChoice(), getComputerChoice());
+        score.textContent = `Player: ${humanScore} Computer: ${computerScore}`;
+
+        if (humanScore == 5) {
+            winner.textContent = "Player wins!";
+        }
+        if (computerScore == 5) {
+            winner.textContent = "Computer wins!"
+        }
+
+        message.replaceChildren();
+        message.appendChild(result);
+        message.appendChild(score);
+        message.appendChild(winner);
     }
 }
 
